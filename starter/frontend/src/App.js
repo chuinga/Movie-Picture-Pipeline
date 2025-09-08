@@ -4,6 +4,7 @@ import MovieDetails from './components/MovieDetails';
 import './App.css';
 
 // Test change for CD workflow
+// Force new deployment with correct API URL
 export default function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
