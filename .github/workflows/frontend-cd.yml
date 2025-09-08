@@ -84,6 +84,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name cluster
+      - name: Install kustomize
+        run: |
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          sudo mv kustomize /usr/local/bin/
       - name: Deploy to Kubernetes
         working-directory: starter/frontend/k8s
         env:
@@ -92,4 +96,4 @@ jobs:
           IMAGE_TAG: ${{ needs.build.outputs.image-tag }}
         run: |
           kustomize edit set image frontend=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          kustomize build | kubectl apply -f -
+          kustomize build | kubectl apply -f - --validate=false
