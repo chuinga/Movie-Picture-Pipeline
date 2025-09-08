@@ -82,9 +82,13 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Update kubeconfig
+      - name: Setup kubectl
         run: |
-          aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name cluster
+          mkdir -p ~/.kube
+          kubectl config set-cluster cluster --server=https://$(aws eks describe-cluster --name cluster --region ${{ env.AWS_REGION }} --query 'cluster.endpoint' --output text) --insecure-skip-tls-verify=true
+          kubectl config set-credentials github-actions --token="${{ secrets.KUBE_TOKEN }}"
+          kubectl config set-context cluster --cluster=cluster --user=github-actions
+          kubectl config use-context cluster
           kubectl get nodes
       - name: Install kustomize
         run: |
