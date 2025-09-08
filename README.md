@@ -477,3 +477,153 @@ kustomize build | kubectl apply -f -
 ## License
 
 [License](LICENSE.md)
+
+---
+
+# Project: Movie Picture Pipeline
+*Submission Date: September 8, 2025*
+
+# Feedback Details
+## Specification Review
+### Reviewer Note
+#### Congratulations !
+You did an excellent work considering it was your first attempt at this project. You project really shows the dedication you've put into this. All the four aspects of this project were wonderfully covered in your submission:
+
+Continuous Integration (Frontend/Backend) ✅
+Continuous Deployment (Frontend/Backend) ✅
+You completed one of the important milestones in your journey as Cloud DevOps student. All the hard work did pay off and you have passed with flying colors. 🌈
+
+This project introduced to you the concept of CI/CD - which is one of the critical concepts when it comes to DevOps.
+I really enjoyed reviewing your submission and hope this project gave some good practical learning. Take a small break and prepare for the next battle.
+
+NOTE: As you've passed the project now, please make sure to delete all the AWS resources created for this project to avoid recurring bills
+Additional Resources 💡:
+To further enhance your knowledge and skills, here are some helpful resources:
+
+- ![AWS DevOps blog](https://aws.amazon.com/blogs/devops/): You can bookmark this link which constantly shares new blogs related to DevOps. Reading these blogs can help you keep updated about the recent trends and can also give you ideas about your future projects
+- ![Github Blog](https://github.blog/): This blog regularly features articles, case studies, and tutorials covering GitHub Actions, DevOps practices, and cloud integration, providing valuable insights and best practices for working on these topics.
+Keep up the fantastic work, and never stop learning and growing. Your determination and passion for excellence will undoubtedly lead you to even greater successes in the future.
+
+PS: If you have any doubts regarding any of the concept, feel free to search or post a question on ![Knowledge Portal](https://knowledge.udacity.com/) where many of the fellow students and mentors may have faced the same situation before and would have provided the appropriate steps to resolve it.
+
+Have a great rest of your day and stay safe ✌
+
+We do love to hear our student feedbacks ⭐⭐⭐ on project reviews to continue providing you with the best learning experience. We would appreciate if you could take few seconds of your precious time to provide the feedback related to this project review (not course feedback)
+
+#### Build CI Pipeline for Frontend
+Build a Continuous Integration pipeline for the frontend end application using Github Actions. The pipeline should be configured to meet the team's needs, fulfilling the requirements of linting, testing, and building of the application on every pull request against the main branch.
+
+Ensure the workflow is named Frontend Continuous Integration and the file should be called frontend-ci.yaml.
+
+Reviewer Note
+
+![](Meets_Specifications_for_Section.png)
+
+Meets specification - For criteria.png*.github/workflows/frontend-ci.yaml is present in the root of the project. It has all of the following: ✅ *Lint Job *Test Job *Build Job *The pipeline is executed automatically on pull_request and can be run manually too (workflow_dispatch) ✅ *The pipeline runs without errors with all tests passing and no output failures from any of the steps ✅Flameshot-2025-09-08_13-28.png
+
+There should be a file called .github/workflows/frontend-ci.yaml in the root of the project.
+
+The following jobs should be present
+
+LINT JOB: There should be a job in the workflow that runs linting. The job should have these steps:
+
+Checkout code
+Setup NodeJS
+Perform a cache action to restore cache before dependency install
+Install dependencies
+Run the npm run lint command
+TEST JOB: There should be a job in the workflow that runs the tests The job should have these steps:
+
+Checkout code
+Setup NodeJS
+Perform a cache action to restore cache before dependency install
+Install dependencies
+Run the npm run test command
+The two jobs above should run in parallel
+
+BUILD JOB: This job should only run after the first 2 succeed (student has to use the "needs" syntax) There should be a step that builds the application using docker. The job should have these steps:
+
+Checkout code
+Setup NodeJS
+Perform a cache action to restore cache before dependency install
+Install dependencies
+Run the npm run test command
+The pipeline should be executed automatically on pull_request The pipeline should be able to be run manually The pipeline should be running without errors with all tests passing and no output failures from any of the steps
+
+#### Build CI Pipeline for Backend
+
+Build a Continuous Integration pipeline for the backend application using Github Actions. The pipeline should be configured to meet the team's needs, fulfilling the requirements of linting, testing, and building of the application on every pull request against the main branch.
+
+Ensure the workflow is named "Backend Continuous Integration" and the file should be called "backend-ci.yaml"
+
+Reviewer Note
+
+![](Meets_Specifications_for_Section1.png)
+
+Meets specification - For criteria.png*.github/workflows/backend-ci.yaml is present in the root of the project. It has all of the following: ✅ *Lint Job *Test Job *Build Job *The lint and test jobs run in parallel, before build job ✅ *The pipeline is executed automatically on pull_request and can be run manually too (workflow_dispatch) ✅ *The pipeline runs without errors with all tests passing and no output failures from any of the steps ✅Flameshot-2025-09-08_13-29.png
+
+There should be a file called .github/workflows/backend-ci.yaml in the root of the project There should be a job in the workflow that runs linting. There should be a job in the workflow that runs the tests Linting and testing should be done in parallel.
+
+The job and lint should complete before proceeding to the build step There should be a job that builds the application using docker.
+
+The pipeline should be executed automatically on pull_request The pipeline should also be able to be run manually The pipeline should be running without errors with all tests passing and no output failures from any of the steps
+
+#### Build CD Pipeline for Frontend
+
+Build a Continuous Deployment pipeline for the frontend application using Github Actions. The pipeline should be configured to meet the team's needs, fulfilling the requirements of linting, testing, building and deploying of the application on every merge to the main branch.
+
+Ensure the workflow is named "Frontend Continuous Deployment" and the file should be called "frontend-cd.yaml"
+
+Reviewer Note
+
+![](Meets_Specifications_for_Section2.png)
+
+Meets specification - For criteria.png*.github/workflows/frontend-cd.yaml is present in the root of the project. It has all of the following: ✅ *Lint Job *Test Job *Build Job *Docker build step uses an environment variable named "REACT_APP_MOVIE_API_URL" ✅ *There's a step that uses aws-actions/amazon-ecr-login action ✅ *Github Secrets are used for credentials when logging in to ECR ✅ *There's a step that deploys the application using kubectl to the eks cluster ✅ *The pipeline is executed automatically on push to main branch and can be run manually too (workflow_dispatch) ✅ *The application is successfully accessible using the LoadBalancer URL 👇Flameshot-2025-09-08_13-29_1.png
+
+There should be a file called .github/workflows/frontend-cd.yaml in the root of the project
+
+There should be a step in the workflow that runs linting and passes
+
+There should be a step in the workflow that runs the tests and passes
+
+There should be a step that builds the application using docker only after linting and testing complete (use the needs directive) This step should also utilize build-args to ensure the application is built with an environment variable REACT_APP_MOVIE_API_URL
+
+There should be a step that utilizes aws-actions/amazon-ecr-login action for logging into ECR. (using 3rd party actions) The ECR login step should also be accessing Github Secrets for credentials. (secure approach)
+
+There should be a step that pushes the docker image to ECR in the AWS account. There should be a step that deploys the application using kubectl to the eks cluster
+
+The pipeline should be executed automatically on merges to the main branch The pipeline should be able to be run manually for verification purposes The pipeline should be running without errors, with all tests passing and no output failures from any of the steps
+
+If there are AWS credentials anywhere in any of the pipelines = FAIL
+If any of the pipelines are failing to run or have failed steps = FAIL
+If any of the pipelines pass when there's a test failure = FAIL (will provide steps on how to simulate test failure)
+If the docker image doesn't get uploaded to ECR = FAIL
+If the application isn't successfully running on the cluster = FAIL (the frontend should be able to pull the list of movies and verify the environment variable was passed correctly)
+Submit a working URL or screenshots showing the frontend application is functioning.
+
+#### Build CD Pipeline for Backend
+
+Build a Continuous Deployment pipeline for the backend application using Github Actions. The pipeline should be configured to meet the team's needs, fulfilling the requirements of linting, testing, building and deploying of the application on every merge to the main branch.
+
+Ensure the workflow is named "Backend Continuous Deployment" and the file should be called "backend-cd.yaml"
+
+Reviewer Note
+
+![](Meets_Specifications_for_Section3.png)
+
+Meets specification - For criteria.png*.github/workflows/backend-cd.yaml is present in the root of the project. It has all of the following: ✅ *Lint Job *Test Job *Build Job *There's a step that uses aws-actions/amazon-ecr-login action ✅ *Github Secrets are used for credentials when logging in to ECR ✅ *There's a step that deploys the application using kubectl to the eks cluster ✅ *The pipeline is executed automatically on push to main branch and can be run manually too (workflow_dispatch) ✅ *The Backend API is accessible using the Backend Loadbalancer link 👇Flameshot-2025-09-08_13-29_2.png
+
+There should be a file called .github/workflows/frontend-cd.yaml in the root of the project There should be a step in the workflow that runs linting. There should be a step in the workflow that runs the tests There should be a step that builds the application using docker.
+
+There should be a step that utilizes aws-actions/amazon-ecr-login action for logging into ECR. (using 3rd party actions) The ECR login step should also be accessing Github Secrets for credentials. (secure approach)
+
+There should be a step that pushes the docker image to ECR in the AWS account. There should be a step that deploys the application using kubectl to the Kubernetes cluster
+
+The pipeline should be executed automatically on merges to the main branch The pipeline should be able to be run manually for verification purposes The pipeline should be running without errors, with all tests passing and no output failures from any of the steps
+
+If there are AWS credentials anywhere in any of the pipelines = FAIL
+If any of the pipelines are failing to run or have failed steps = FAIL
+If any of the pipelines pass when there's a test failure = FAIL (will provide steps on how to simulate test failure)
+If the docker image doesn't get uploaded to ECR = FAIL
+If the application isn't successfully running on the cluster = FAIL
+Submit a working URL or screenshot showing that the Backend API returns the list of movies.
