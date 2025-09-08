@@ -85,7 +85,7 @@ jobs:
       - name: Setup kubectl
         run: |
           mkdir -p ~/.kube
-          kubectl config set-cluster cluster --server=https://$(aws eks describe-cluster --name cluster --region ${{ env.AWS_REGION }} --query 'cluster.endpoint' --output text) --insecure-skip-tls-verify=true
+          kubectl config set-cluster cluster --server=https://97229C98C4F05C5FE1944563CC0B6365.sk1.us-east-1.eks.amazonaws.com --insecure-skip-tls-verify=true
           kubectl config set-credentials github-actions --token="${{ secrets.KUBE_TOKEN }}"
           kubectl config set-context cluster --cluster=cluster --user=github-actions
           kubectl config use-context cluster
