@@ -1,6 +1,12 @@
 # Movie Picture Pipeline
 
-<!-- CI/CD Pipeline Implementation Complete -->
+## Working Application URLs
+
+**Frontend Application:**
+http://a4c6c32a078e14766ae9f4597b545c08-1609818494.us-east-1.elb.amazonaws.com
+
+**Backend API:**
+http://a094228c4062a45b9ab8789cc25f6599-331841806.us-east-1.elb.amazonaws.com/movies
 
 You've been brought on as the DevOps resource for a development team that manages a web application that is a catalog of Movie Picture movies. They're in dire need of automating their development workflows in hopes of accelerating their release cycle. They'd like to use Github Actions to automate testing, building and deploying their applications to an existing Kubernetes cluster.
 
